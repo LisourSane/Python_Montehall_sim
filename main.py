@@ -5,33 +5,40 @@
 #libraries
 import random
 
-print("Wybierz drzwi A, B lub C.")
-drzwi = input('')
-if drzwi not in ['A','B','C']:
-    print("Błąd, wybrano drzwi z poza listy.")
-    exit()
-else:
-    wygrana = random.choice(['A', 'B', 'C'])
-    print("Nagroda jest za drzwiami", wygrana)
-    bez_wygranej = list(['A', 'B', 'C'])
-    bez_wygranej.remove(wygrana)
-
-    otwarte = random.choice([i for i in bez_wygranej if i not in drzwi])
-    pozostałe = list(['A', 'B', 'C'])
-    pozostałe.remove(otwarte)
-    pozostałe.remove(drzwi)
-    pozostałe = pozostałe[0]
-    print("Zostały otworzone drzwi ",otwarte, ". Czy chcesz zmienić drzwi na", pozostałe, "? tak/nie")
-    zmiana = input('')
-    c = 0
-    if zmiana == 'tak':
-        c = drzwi
-        drzwi = pozostałe
-        pozostałe = c
-    if drzwi == wygrana:
-        print("Gratulacje, wygrałeś")
+print("Jeśli chcesz zagrać samemu, wpisz 1. Jeśli chcesz przeprowadzić symulacje, wpisz 2.")
+tryb = int(input())
+if tryb == 1:
+    print("Wybierz drzwi A, B lub C.")
+    drzwi = input('')
+    if drzwi not in ['A', 'B', 'C']:
+        print("Błąd, wybrano drzwi z poza listy.")
+        exit()
     else:
-        print("Niestety przegrałeś")
+        wygrana = random.choice(['A', 'B', 'C'])
+        #print("Nagroda jest za drzwiami", wygrana)
+        bez_wygranej = list(['A', 'B', 'C'])
+        bez_wygranej.remove(wygrana)
+        otwarte = random.choice([i for i in bez_wygranej if i not in drzwi])
+        pozostałe = list(['A', 'B', 'C'])
+        pozostałe.remove(otwarte)
+        pozostałe.remove(drzwi)
+        pozostałe = pozostałe[0]
+        print("Zostały otworzone drzwi ", otwarte, ". Czy chcesz zmienić drzwi na", pozostałe, "? tak/nie")
+        zmiana = input('')
+        c = 0
+        if zmiana == 'tak':
+            c = drzwi
+            drzwi = pozostałe
+            pozostałe = c
+        if drzwi == wygrana:
+            print("Gratulacje, wygrałeś")
+        else:
+            print("Niestety przegrałeś")
+elif tryb == 2:
+    print("Nie ma")
+else:
+    print("Proszę wpisać 1 lub 2!")
+    exit()
 
 
 
