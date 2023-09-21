@@ -4,6 +4,8 @@
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 #libraries
 import random
+import numpy as np
+import matplotlib.pyplot as plp
 
 print("Jeśli chcesz zagrać samemu, wpisz 1. Jeśli chcesz przeprowadzić symulacje, wpisz 2.")
 tryb = int(input())
@@ -35,7 +37,104 @@ if tryb == 1:
         else:
             print("Niestety przegrałeś")
 elif tryb == 2:
-    print("Nie ma")
+    print("Ile chcesz prób w symulacji?")
+    n = int(input())
+    print("Jeśli chcesz zawsze zmieniać, wpisz 1. Jeśli chcesz zawsze zostawiać, wpisz 2. Jeśli ma być losowo, wpisz 3.")
+    mode = int(input())
+    wyniki = np.zeros(n)
+    if mode == 1:
+        for i in range(0, n):
+            win = random.choice(['A', 'B', 'C'])
+            #print("win", win)
+            pick = random.choice(['A', 'B', 'C'])
+            #print("pick", pick)
+            not_pick = ['A', 'B', 'C']
+            not_pick.remove(pick)
+            #print("not_pick", not_pick)
+            op = [i for i in not_pick if i != win]
+            op = random.choice(op)
+            #print("op", op)
+            left = ['A', 'B', 'C']
+            left.remove(op)
+            left.remove(pick)
+            left = left[0]
+            #print("left", left)
+            c = pick
+            pick = left
+            left = c
+            if win == pick:
+                wyniki[i] = 1
+                #print("Wygrana")
+                #print(wyniki.cumsum())
+            else:
+                wyniki[i] = 0
+                #print("Przegrana")
+                #print(wyniki.cumsum())
+        for_plot = wyniki.cumsum()/n
+        plp.plot(for_plot)
+        plp.xlabel("Próby")
+        plp.ylabel("Prawdopodobieństwo")
+        plp.title("Symulacja")
+        plp.show()
+    elif mode == 2:
+        for i in range(0, n):
+            win = random.choice(['A', 'B', 'C'])
+            #print("win", win)
+            pick = random.choice(['A', 'B', 'C'])
+            if win == pick:
+                wyniki[i] = 1
+                # print("Wygrana")
+                # print(wyniki.cumsum())
+            else:
+                wyniki[i] = 0
+                # print("Przegrana")
+                # print(wyniki.cumsum())
+        for_plot = wyniki.cumsum() / n
+        plp.plot(for_plot)
+        plp.xlabel("Próby")
+        plp.ylabel("Prawdopodobieństwo")
+        plp.title("Symulacja")
+        plp.show()
+    else:
+        for i in range(0, n):
+            j = random.choice([1,2])
+            win = random.choice(['A', 'B', 'C'])
+            #print("win", win)
+            pick = random.choice(['A', 'B', 'C'])
+            if j%2 == 1:
+                not_pick = ['A', 'B', 'C']
+                not_pick.remove(pick)
+                # print("not_pick", not_pick)
+                op = [i for i in not_pick if i != win]
+                op = random.choice(op)
+                # print("op", op)
+                left = ['A', 'B', 'C']
+                left.remove(op)
+                left.remove(pick)
+                left = left[0]
+                # print("left", left)
+                c = pick
+                pick = left
+                left = c
+            if win == pick:
+                wyniki[i] = 1
+                #print("Wygrana")
+                #print(wyniki.cumsum())
+            else:
+                wyniki[i] = 0
+                #print("Przegrana")
+                #print(wyniki.cumsum())
+        for_plot = wyniki.cumsum()/n
+        plp.plot(for_plot)
+        plp.xlabel("Próby")
+        plp.ylabel("Prawdopodobieństwo")
+        plp.title("Symulacja")
+        plp.show()
+
+
+
+
+
 else:
     print("Proszę wpisać 1 lub 2!")
     exit()
